@@ -29,9 +29,6 @@ public class ChatController implements Initializable {
     private Label userNameField;
 
     @FXML
-    private VBox mainPanel;
-
-    @FXML
     private TextArea chatArea;
 
     @FXML
