@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 public class ChatController implements Initializable {
 
     private Map <String, String> usersChatHistory = new HashMap<>();
+
     @FXML
     private Label userNameField;
     @FXML
