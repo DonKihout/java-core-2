@@ -1,84 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gb.net_chat.ChatController">
-    <VBox fx:id="mainPanel" visible="true">
+<?import javafx.geometry.Insets?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.gb.may_chat.client.ChatController">
+    <VBox visible="false" fx:id="changeNickPanel">
+
+        <HBox VBox.vgrow="ALWAYS">
+            <VBox>
+                <Label text="Please enter your new nickname:"/>
+                <TextField fx:id="newNickField" onAction="#sendChangeNick"/>
+            </VBox>
+        </HBox>
+        <Button text="SEND" onAction="#sendChangeNick"/>
+        <Button text="RETURN" onAction="#returnToChat"/>
+    </VBox>
+    <VBox visible="false" fx:id="changePasswordPanel">
+
+        <HBox VBox.vgrow="ALWAYS">
+            <VBox>
+                <Label text="Please enter your old password:"/>
+                <PasswordField fx:id="oldPassField" onAction="#sendChangePass"/>
+            </VBox>
+            <VBox>
+                <Label text="Please enter your new password:"/>
+                <PasswordField fx:id="newPasswordField" onAction="#sendChangePass"/>
+            </VBox>
+        </HBox>
+        <Button text="SEND" onAction="#sendChangePass"/>
+        <Button text="RETURN" onAction="#returnToChat"/>
+    </VBox>
+    <VBox fx:id="loginPanel">
+        <Label text="Login: "/>
+        <TextField fx:id="loginField"/>
+        <Label text="Password: "/>
+        <PasswordField fx:id="passwordField" onAction="#sendAuth"/>
+        <Button text="connect" onAction="#sendAuth"/>
+    </VBox>
+    <VBox fx:id="mainPanel" visible="false">
         <MenuBar>
             <Menu text="File">
-                <MenuItem onAction="#mockAction" text="Open" />
-                <MenuItem onAction="#mockAction" text="Connect" />
-                <MenuItem onAction="#mockAction" text="Something" />
-                <MenuItem onAction="#closeApplication" text="Exit" />
+                <MenuItem text="Open" onAction="#mockAction"/>
+                <MenuItem text="Connect" onAction="#mockAction"/>
+                <MenuItem text="Something" onAction="#mockAction"/>
+                <MenuItem text="Exit" onAction="#closeApplication"/>
             </Menu>
             <Menu text="Edit">
-                <MenuItem onAction="#mockAction" text="Open" />
-                <MenuItem onAction="#mockAction" text="Connect" />
-                <MenuItem onAction="#mockAction" text="Something" />
-                <MenuItem onAction="#mockAction" text="Exit" />
+                <MenuItem text="Change nick name" onAction="#showChangeNickPanel"/>
+                <MenuItem text="Something" onAction="#mockAction"/>
+                <MenuItem text="Something" onAction="#mockAction"/>
+                <MenuItem text="Exit" onAction="#mockAction"/>
             </Menu>
             <Menu text="View">
-                <MenuItem onAction="#mockAction" text="Open" />
-                <MenuItem onAction="#mockAction" text="Connect" />
-                <MenuItem onAction="#mockAction" text="Something" />
-                <MenuItem onAction="#mockAction" text="Exit" />
+                <MenuItem text="Open" onAction="#mockAction"/>
+                <MenuItem text="Connect" onAction="#mockAction"/>
+                <MenuItem text="Something" onAction="#mockAction"/>
+                <MenuItem text="Exit" onAction="#mockAction"/>
             </Menu>
             <Menu text="Help">
-                <MenuItem onAction="#openAboutForm" text="About" />
-                <MenuItem onAction="#mockAction" text="Connect" />
-                <MenuItem onAction="#mockAction" text="Something" />
-                <MenuItem onAction="#mockAction" text="Exit" />
+                <MenuItem text="Open" onAction="#mockAction"/>
+                <MenuItem text="Connect" onAction="#mockAction"/>
+                <MenuItem text="Something" onAction="#mockAction"/>
+                <MenuItem text="Exit" onAction="#mockAction"/>
             </Menu>
         </MenuBar>
 
         <HBox VBox.vgrow="ALWAYS">
-         <FlowPane>
-            <children>
-               <Label fx:id="userNameField" alignment="CENTER" contentDisplay="CENTER" text="Net Chat" textAlignment="JUSTIFY" textFill="#c35555" textOverrun="CENTER_ELLIPSIS">
-                  <font>
-                     <Font size="20.0" />
-                  </font>
-                  <FlowPane.margin>
-                     <Insets left="190.0" top="5.0" />
-                  </FlowPane.margin>
-               </Label>
-                  <TextArea fx:id="chatArea" editable="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="350">
-                  <FlowPane.margin>
-                     <Insets top="15.0" />
-                  </FlowPane.margin>
-                  </TextArea>
-            </children>
-            <HBox.margin>
-               <Insets left="6.0" />
-            </HBox.margin>
-         </FlowPane>
-            <ListView fx:id="contacts" onMousePressed="#listRowSelected" prefWidth="150.0" onMouseClicked="#refreshChat">
+            <TextArea fx:id="chatArea" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" editable="false">
                 <HBox.margin>
-                    <Insets left="6.0" right="6.0" />
+                    <Insets left="6.0" right="6.0"/>
+                </HBox.margin>
+            </TextArea>
+            <ListView fx:id="contacts" prefWidth="150.0">
+                <HBox.margin>
+                    <Insets left="6.0" right="6.0"/>
                 </HBox.margin>
             </ListView>
             <VBox.margin>
-                <Insets bottom="12.0" top="5.0" />
+                <Insets bottom="12.0" top="5.0"/>
             </VBox.margin>
         </HBox>
 
         <HBox VBox.vgrow="ALWAYS">
-            <TextField fx:id="inputField" onAction="#sendMessage" prefHeight="65.0" HBox.hgrow="ALWAYS">
+            <TextField fx:id="inputField"  HBox.hgrow="ALWAYS" prefHeight="65.0" onAction="#sendMessage">
                 <HBox.margin>
-                    <Insets left="6.0" right="6.0" />
+                    <Insets left="6.0" right="6.0"/>
                 </HBox.margin>
             </TextField>
-            <Button fx:id="btnSend" minWidth="150.0" onAction="#sendMessage" prefHeight="65.0" text="SEND">
+            <Button fx:id="btnSend" minWidth="150.0" prefHeight="65.0" onAction="#sendMessage" text="SEND">
                 <HBox.margin>
-                    <Insets right="6.0" />
+                    <Insets left="6.0" right="6.0"/>
                 </HBox.margin>
             </Button>
             <VBox.margin>
-                <Insets bottom="5.0" />
+                <Insets bottom="5.0"/>
             </VBox.margin>
         </HBox>
     </VBox>
+
 </AnchorPane>
