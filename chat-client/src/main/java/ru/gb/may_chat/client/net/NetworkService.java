@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+
+import ru.gb.l6_net.Handler;
+import ru.gb.may_chat.client.ChatController;
 import ru.gb.may_chat.props.PropertyReader;
 
 public class NetworkService {
@@ -14,6 +17,7 @@ public class NetworkService {
     private Socket socket;
     private Thread clientThread;
     private final MessageProcessor messageProcessor;
+    private Boolean status = new ChatController().getAuthOK();
 
     public NetworkService(MessageProcessor messageProcessor) {
         this.messageProcessor = messageProcessor;
@@ -25,8 +29,19 @@ public class NetworkService {
 
     public void connect() throws IOException {
         socket = new Socket(host, port);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(10000);
+                if(!status) shutdown();
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
+
         readMessages();
     }
 

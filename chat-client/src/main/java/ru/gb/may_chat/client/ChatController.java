@@ -75,6 +75,8 @@ public class ChatController implements Initializable, MessageProcessor {
 
     private String user;
 
+    private static Boolean authOK = false;
+
     public void mockAction(ActionEvent actionEvent) {
         System.out.println("mock");
     }
@@ -147,6 +149,7 @@ public class ChatController implements Initializable, MessageProcessor {
     }
 
     private void authOk(String[] split) {
+        authOK = true;
         System.out.println("Auth ok");
         user = split[1];
         loginPanel.setVisible(false);
@@ -197,5 +200,13 @@ public class ChatController implements Initializable, MessageProcessor {
     public void showChangeNickPanel(ActionEvent actionEvent) {
         changeNickPanel.setVisible(true);
         mainPanel.setVisible(false);
+    }
+
+    public NetworkService getNetworkService() {
+        return networkService;
+    }
+
+    public Boolean getAuthOK() {
+        return authOK;
     }
 }
